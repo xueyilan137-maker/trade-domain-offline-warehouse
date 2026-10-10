@@ -1,0 +1,6 @@
+{"event_id":"e001","user_id":"u1001","event_type":"visit","ts_ms":1776129601000}
+{"event_id":"e002","user_id":"u1002","event_type":"visit","ts_ms":1776129604000}
+{"event_id":"e003","user_id":"u2001","event_type":"visit","ts_ms":1776129616000}
+{"event_id":"e004","user_id":"u1003","event_type":"visit","ts_ms":1776129608000}
+{"event_id":"e005","user_id":"u3001","event_type":"visit","ts_ms":1776129626000}
+{"event_id":"e006","user_id":"u1004","event_type":"visit","ts_ms":1776129609000}

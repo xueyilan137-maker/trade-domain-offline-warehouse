@@ -1,0 +1,22 @@
+# Personal resume drafts
+resume_data_development_*.md
+
+# Local environment files
+.env
+.env.*
+
+# Generated SQL and logs
+pipeline/generated/
+pipeline/logs/
+airflow/logs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

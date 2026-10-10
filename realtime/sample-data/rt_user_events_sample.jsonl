@@ -1,0 +1,10 @@
+{"event_id":"e001","user_id":"u1001","event_type":"register","ts_ms":1743328800000}
+{"event_id":"e002","user_id":"u1001","event_type":"visit","ts_ms":1743328802000}
+{"event_id":"e003","user_id":"u1002","event_type":"visit","ts_ms":1743328804000}
+{"event_id":"e004","user_id":"u1001","event_type":"order","ts_ms":1743328807000}
+{"event_id":"e005","user_id":"u1003","event_type":"visit","ts_ms":1743328811000}
+{"event_id":"e006","user_id":"u1002","event_type":"cart","ts_ms":1743328814000}
+{"event_id":"e007","user_id":"u1002","event_type":"order","ts_ms":1743328818000}
+{"event_id":"e008","user_id":"u1004","event_type":"register","ts_ms":1743328823000}
+{"event_id":"e009","user_id":"u1004","event_type":"visit","ts_ms":1743328825000}
+{"event_id":"e010","user_id":"u1004","event_type":"order","ts_ms":1743328829000}

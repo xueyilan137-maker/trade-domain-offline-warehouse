@@ -1,0 +1,54 @@
+services:
+  rt-kafka:
+    image: apache/kafka:3.7.1
+    container_name: rt-kafka
+    hostname: rt-kafka
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:29092,PLAINTEXT_HOST://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://rt-kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@rt-kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 1
+    ports:
+      - "9092:9092"
+    networks:
+      - realtime-net
+
+  rt-flink-jobmanager:
+    image: flink:1.17.2-scala_2.12-java8
+    container_name: rt-flink-jobmanager
+    hostname: rt-flink-jobmanager
+    depends_on:
+      - rt-kafka
+    command: jobmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: rt-flink-jobmanager
+    ports:
+      - "8082:8081"
+    networks:
+      - realtime-net
+
+  rt-flink-taskmanager:
+    image: flink:1.17.2-scala_2.12-java8
+    container_name: rt-flink-taskmanager
+    hostname: rt-flink-taskmanager
+    depends_on:
+      - rt-flink-jobmanager
+    command: taskmanager
+    environment:
+      JOB_MANAGER_RPC_ADDRESS: rt-flink-jobmanager
+      TASK_MANAGER_NUMBER_OF_TASK_SLOTS: 2
+    networks:
+      - realtime-net
+
+networks:
+  realtime-net:
+    name: realtime-net

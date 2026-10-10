@@ -1,0 +1,50 @@
+services:
+  doris-fe:
+    image: apache/doris:fe-4.0.1
+    container_name: rt-doris-fe
+    hostname: doris-fe
+    restart: unless-stopped
+    volumes:
+      - ./conf/fe.conf:/opt/apache-doris/fe/conf/fe.conf
+      - ./data/fe-meta:/opt/apache-doris/fe/doris-meta
+    environment:
+      FE_SERVERS: fe1:172.20.80.2:9010
+      FE_ID: 1
+    ports:
+      - "8030:8030"
+      - "9030:9030"
+      - "9010:9010"
+    networks:
+      doris-net:
+        ipv4_address: 172.20.80.2
+      realtime-net:
+
+  doris-be:
+    image: apache/doris:be-4.0.1
+    container_name: rt-doris-be
+    hostname: doris-be
+    restart: unless-stopped
+    depends_on:
+      - doris-fe
+    volumes:
+      - ./conf/be.conf:/opt/apache-doris/be/conf/be.conf
+      - ./data/be-storage:/opt/apache-doris/be/storage
+    environment:
+      FE_SERVERS: fe1:172.20.80.2:9010
+      BE_ADDR: 172.20.80.3:9050
+    ports:
+      - "8040:8040"
+      - "9050:9050"
+    networks:
+      doris-net:
+        ipv4_address: 172.20.80.3
+      realtime-net:
+
+networks:
+  doris-net:
+    name: doris-net
+    ipam:
+      config:
+        - subnet: 172.20.80.0/24
+  realtime-net:
+    external: true
